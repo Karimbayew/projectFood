@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
             item.classList.remove('tabheader__item_active')
         });
     } 
-    function showTabContent(i = 0) {
+    function showTabContent(i = 1) {
         tabsContent[i].style.display = 'block';
         tabs[i].classList.add('tabheader__item_active');
     }
