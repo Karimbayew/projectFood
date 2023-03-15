@@ -223,21 +223,4 @@ window.addEventListener('DOMContentLoaded', () => {
         'menu__item'
     ).render();
     
-    // tuOP
-
-    // function toUp() {
-    //     const toUp = document.querySelector('.toUp');
-    //     window.addEventListener('scroll', () => {
-    //         if(document.documentElement.scrollTop > 100) {
-    //             toUp.classList.add('toUp-active');
-    //             toUp.addEventListener('click', () => {
-    //                 document.documentElement.scrollTop = 0; 
-    //             })
-    //         } else {
-    //             toUp.classList.remove('toUp-active');
-    //         }
-    //         console.log(document.documentElement.scrollTop);
-    //     })
-    // }
-    // toUp();
 });
