@@ -41,19 +41,27 @@ window.addEventListener('DOMContentLoaded', () => {
     
     function getTimeRemaining(endtime) {
         
-        const t = new Date(deadline) - new Date(),
-              days = Math.floor(86400000 / (1000 * 60 * 60 * 24)),
-              hours = Math.floor((90300000 / (1000 * 60 * 60) % 24)),
-              minutes = Math.floor(t / (1000 * 60 * 60) % 60),
-              seconds = Math.floor((t / 1000) % 60);
-    
+        let days, hours, minutes, seconds;
+        const t = Date.parse(endtime) - Date.parse(new Date());
+
+        if (t <= 0) {
+            days = 0;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        } else {
+            days = Math.floor(t / (1000 * 60 * 60 * 24)),
+            hours = Math.floor((t / (1000 * 60 *60) % 24)),
+            minutes = Math.floor((t / 1000 / 60) % 60),
+            seconds = Math.floor((t / 1000) % 60);
+        }
         return {
             'total': t,
             'days': days,
             'hours': hours,
             'minutes': minutes,
             'seconds': seconds
-        };
+        }
     }
     
     function getZero(num) {
@@ -92,12 +100,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // class for cards
 
     class MenuCard {
-        constructor (src, alt, subtitle, descr, price, parentSelector) {
+        constructor (src, alt, subtitle, descr, price, parentSelector, ...classes) {
             this.src = src;
             this.alt = alt;
             this.subtitle = subtitle;
             this.descr = descr;
             this.price = price;
+            this.classes = classes;
             this.parent = document.querySelector(parentSelector);
             this.curs = 97.5;
             this.toChangeTm();
@@ -109,8 +118,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
         render() {
             const element = document.createElement('div');
-
-            element.classList.add('menu__item');
+            if(this.classes.length === 0) {
+                this.element = 'menu__item';
+                element.classList.add(this.element);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
 
             element.innerHTML = `
                 <img src=${this.src} alt=${this.alt}>
@@ -133,7 +146,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Фитнес"',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         10,
-        '.menu .container',
+        '.menu .container'
     ).render();
 
     new MenuCard(
@@ -142,7 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Фитнес"',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         10,
-        '.menu .container',
+        '.menu .container'
     ).render();
 
     new MenuCard(
@@ -151,6 +164,6 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Фитнес"',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         10,
-        '.menu .container',
+        '.menu .container'
     ).render();
 })
